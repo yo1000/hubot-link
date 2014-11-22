@@ -9,7 +9,7 @@ Add hubot-link to your package.json, run npm install and add hubot-link to exter
 Add hubot-link to your package.json dependencies.
 
     "dependencies": {
-      "hubot-link": ">= 0.1.0"
+      "hubot-link": ">= 0.1.1"
     }
 
 Add hubot-link to external-scripts.json.
