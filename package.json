@@ -1,0 +1,26 @@
+{
+  "name": "hubot-link",
+  "description": "Make an alias like ln",
+  "version": "0.1.0",
+  "author": "Yoichi KIKUCHI",
+  "license": "MIT",
+
+  "keywords": [
+    "hubot"
+  ],
+
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Yoichi-KIKUCHI/hubot-link.git"
+  },
+
+  "bugs": {
+    "url": "https://github.com/Yoichi-KIKUCHI/hubot-link/issues"
+  },
+
+  "dependencies": {
+    "coffee-script": "~1.6"
+  },
+
+  "main": "index.coffee",
+}
