@@ -1,7 +1,7 @@
 {
   "name": "hubot-link",
   "description": "Make an alias like ln",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": "Yoichi KIKUCHI",
   "license": "MIT",
 
