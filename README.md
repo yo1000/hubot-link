@@ -26,7 +26,7 @@ Add hubot-link to external-scripts.json.
     
     me> hubot ln
     hubot> pp -> "hubot ping"
-         > echo-hello -> "hubot echo Hello"
+    echo-hello -> "hubot echo Hello"
     
     me> hubot ln pp
     hubot> PONG
