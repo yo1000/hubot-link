@@ -63,8 +63,6 @@ module.exports = (robot) ->
     lnEntries = robot.brain.get BRAIN_KEY_LINK
     lnEntries = if lnEntries? then lnEntries else {}
     lnCmd = lnEntries[lnKey]
-    author = robot.brain.userForName(msg.message.user.reply_to) or new User(msg.message.user.reply_to)
-    author.reply_to = msg.message.user.reply_to
-    author.room = msg.message.user.room
+    author = msg.message.user
     message = lnCmd
     robot.adapter.receive new TextMessage(author, message)
