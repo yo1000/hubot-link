@@ -9,9 +9,10 @@
 #
 # Commands:
 #   hubot ln - Show link entries
-#   hubot ln <alias> - Send source message
+#   hubot ln <alias> [option] - Send source message
 #   hubot ln add <alias> "<source message>" - Add link entry
-#   hubot ln [rm|remove] <alias> - Remove link entry
+#   hubot ln rm <alias> - Remove link entry
+#   hubot ln remove <alias> - Remove link entry
 #
 # Author:
 #   Yoichi-KIKUCHI
@@ -24,7 +25,7 @@ module.exports = (robot) ->
     messages = ""
     lnEntries = robot.brain.get BRAIN_KEY_LINK
     for lnKey, lnVal of lnEntries
-      messages += (lnKey + ' -> "' + lnVal + '"\n')
+      messages += "#{lnKey} -> \"#{lnVal}\"\n"
     if messages isnt ""
       msg.send messages
 
@@ -47,7 +48,7 @@ module.exports = (robot) ->
     lnEntries = if lnEntries? then lnEntries else {}
     lnEntries[lnKey] = lnVal
     robot.brain.set BRAIN_KEY_LINK, lnEntries
-    msg.send "Add link: " + lnKey + ' -> "' + lnVal + '"'
+    msg.send "Add link: #{lnKey} -> \"#{lnVal}\""
 
   ln.remove = (msg, text) =>
     match = text.match /(?:rm|remove) (.+)$/i
@@ -56,13 +57,15 @@ module.exports = (robot) ->
     lnEntries = if lnEntries? then lnEntries else {}
     delete lnEntries[lnKey]
     robot.brain.set BRAIN_KEY_LINK, lnEntries
-    msg.send "Remove link: " + lnKey
+    msg.send "Remove link: #{lnKey}"
 
   ln.command = (msg, text) =>
-    lnKey = text
+    match = text.match /([^ ]+)[\s]?(.*)?$/i
+    lnKey = match[1]
+    lnOpt = match[2]
     lnEntries = robot.brain.get BRAIN_KEY_LINK
     lnEntries = if lnEntries? then lnEntries else {}
     lnCmd = lnEntries[lnKey]
     author = msg.message.user
-    message = lnCmd
+    message = lnCmd + (if lnOpt? then " #{lnOpt}" else "")
     robot.adapter.receive new TextMessage(author, message)
