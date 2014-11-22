@@ -9,7 +9,7 @@ Add hubot-link to your package.json, run npm install and add hubot-link to exter
 Add hubot-link to your package.json dependencies.
 
     "dependencies": {
-      "hubot-link": ">= 0.2.1"
+      "hubot-link": ">= 0.2.2"
     }
 
 Add hubot-link to external-scripts.json.
@@ -30,8 +30,8 @@ Add hubot-link to external-scripts.json.
     
     me> hubot ln pp
     hubot> PONG
-    me> hubot ln echo-hello World
-    hubot> Hello World
+    me> hubot ln echo-hello "World"
+    hubot> HelloWorld
     
     me> hubot ln rm pp
     hubot> Remove link: pp

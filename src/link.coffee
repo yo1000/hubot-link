@@ -9,7 +9,7 @@
 #
 # Commands:
 #   hubot ln - Show link entries
-#   hubot ln <alias> [option] - Send source message
+#   hubot ln <alias> ["option"] - Send source message
 #   hubot ln add <alias> "<source message>" - Add link entry
 #   hubot ln rm <alias> - Remove link entry
 #   hubot ln remove <alias> - Remove link entry
@@ -63,9 +63,10 @@ module.exports = (robot) ->
     match = text.match /([^ ]+)[\s]?(.*)?$/i
     lnKey = match[1]
     lnOpt = match[2]
+    lnOpt = if lnOpt? then lnOpt.replace(/^"/, "").replace(/"$/, "") else ""
     lnEntries = robot.brain.get BRAIN_KEY_LINK
     lnEntries = if lnEntries? then lnEntries else {}
     lnCmd = lnEntries[lnKey]
     author = msg.message.user
-    message = lnCmd + (if lnOpt? then " #{lnOpt}" else "")
+    message = lnCmd + lnOpt
     robot.adapter.receive new TextMessage(author, message)
