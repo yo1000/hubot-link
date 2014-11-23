@@ -32,9 +32,9 @@ module.exports = (robot) ->
   robot.respond /ln (.+)$/i, (msg) ->
     text = msg.match[1]
 
-    if text.indexOf("add ") is 0
+    if /add (.+) "(.+)"$/i.test text
       ln.add msg, text
-    else if text.indexOf("rm ") is 0 || text.indexOf("remove ") is 0
+    else  if /(?:rm|remove) (.+)$/i.test text
       ln.remove msg, text
     else
       ln.command msg, text
@@ -60,13 +60,14 @@ module.exports = (robot) ->
     msg.send "Remove link: #{lnKey}"
 
   ln.command = (msg, text) =>
-    match = text.match /([^ ]+)[\s]?(.*)?$/i
+    match = text.match /([^ ]+)([\s]+.*)?$/i
     lnKey = match[1]
-    lnOpt = match[2]
-    lnOpt = if lnOpt? then lnOpt.replace(/^"/, "").replace(/"$/, "") else ""
+    lnOpt = ""
+    if match.length > 2
+      lnOpt = if match[2]? then match[2].trim().replace(/^"/, "").replace(/"$/, "") else ""
     lnEntries = robot.brain.get BRAIN_KEY_LINK
     lnEntries = if lnEntries? then lnEntries else {}
     lnCmd = lnEntries[lnKey]
     author = msg.message.user
-    message = lnCmd + lnOpt
+    message = "#{robot.name}:  #{lnCmd}#{lnOpt}"
     robot.adapter.receive new TextMessage(author, message)
