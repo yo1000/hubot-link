@@ -40,7 +40,7 @@ module.exports = (robot) ->
       ln.command msg, text
 
   ln = {}
-  ln.add = (msg, text) =>
+  ln.add = (msg, text) ->
     match = text.match /add (.+) "(.+)"$/i
     lnKey = match[1]
     lnVal = match[2]
@@ -50,7 +50,7 @@ module.exports = (robot) ->
     robot.brain.set BRAIN_KEY_LINK, lnEntries
     msg.send "Add link: #{lnKey} -> \"#{lnVal}\""
 
-  ln.remove = (msg, text) =>
+  ln.remove = (msg, text) ->
     match = text.match /(?:rm|remove) (.+)$/i
     lnKey = match[1]
     lnEntries = robot.brain.get BRAIN_KEY_LINK
@@ -59,7 +59,7 @@ module.exports = (robot) ->
     robot.brain.set BRAIN_KEY_LINK, lnEntries
     msg.send "Remove link: #{lnKey}"
 
-  ln.command = (msg, text) =>
+  ln.command = (msg, text) ->
     match = text.match /([^ ]+)([\s]+.*)?$/i
     lnKey = match[1]
     lnOpt = ""
